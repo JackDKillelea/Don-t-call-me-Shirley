@@ -39,7 +39,7 @@ if player_data:
         # Create a dictionary for the player info
         player_info = {
             "Player Name": data['name'],
-            "Role": data['active_spec_role'],
+            "iLevel": None,
             "DFC": None,
             "ROOK": None,
             "ML": None,
@@ -51,6 +51,10 @@ if player_data:
             "Score": None,
             "URL": data['profile_url']
         }
+
+        # Extract ilvl
+        gear = data.get('gear', {})
+        player_info['iLevel'] = gear.get('item_level_equipped', {})
 
         # Extract mythic plus scores
         for season in data.get('mythic_plus_scores_by_season', []):
