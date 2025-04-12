@@ -86,7 +86,7 @@ if player_data:
     df = pd.DataFrame(player_info_list)  # Pass the list directly
 
     # Display the DataFrame as a table
-    st.table(df)
+    st.dataframe(df, use_container_width=True)
 else:
     st.write("No data available.")
 
@@ -140,7 +140,7 @@ if player_data:
     df = pd.DataFrame(player_info_list)  # Pass the list directly
 
     # Display the DataFrame as a table
-    st.table(df)
+    st.dataframe(df, use_container_width=True)
 else:
     st.write("No data available.")
 
@@ -195,7 +195,7 @@ if player_data:
     df = pd.DataFrame(player_info_list)  # Pass the list directly
 
     # Display the DataFrame as a table
-    st.table(df)
+    st.dataframe(df, use_container_width=True)
 else:
     st.write("No data available.")
 
@@ -250,7 +250,7 @@ if player_data:
     df = pd.DataFrame(player_info_list)  # Pass the list directly
 
     # Display the DataFrame as a table
-    st.table(df)
+    st.dataframe(df, use_container_width=True)
 else:
     st.write("No data available.")
 
