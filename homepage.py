@@ -8,6 +8,7 @@ players = ["Baldimonk", "Gigdh", "Seutoxze", "WhiteDane", "Winmea", "Ñhs"]
 player_data = []
 
 def GetData(charName):
+    # Possibly need to add ability to search for characters on different realms as well? 
     url = f"https://raider.io/api/v1/characters/profile?access_key=RIOA7C3rY8vWSajjvjroDXRka&region=eu&realm=Draenor&name={charName}&fields=gear%2Cmythic_plus_scores_by_season%3Acurrent%2Cmythic_plus_ranks%2Cmythic_plus_best_runs%2C"
     response = requests.get(url)
 
@@ -21,8 +22,7 @@ def GetData(charName):
 st.set_page_config(layout="wide")
 
 st.title("Don't Call Me Shirley")
-st.subheader("Lets see who is the shittest on the team!")
-st.write("Please feel free to shit talk the lowest RIO player.")
+st.subheader("Let me know if you want anything adding")
 
 # Fetch data for each player
 for player in players:
@@ -57,7 +57,6 @@ if player_data:
             score = season['scores'].get('all', None)
             player_info["Score"] = f"{score:.1f}" if score is not None else None
 
-
         # Extract best runs
         for run in data.get('mythic_plus_best_runs', []):
             dungeon = run['short_name']
@@ -83,7 +82,10 @@ if player_data:
 
     player_info_list.sort(key=lambda x: x["Player Name"])
     # Convert to DataFrame
-    df = pd.DataFrame(player_info_list)  # Pass the list directly
+    df = pd.DataFrame(player_info_list)
+
+    # Convert 0 indexing to 1 indexing
+    df.index = range(1, len(df) + 1)
 
     # Display the DataFrame as a table
     st.dataframe(df, use_container_width=True)
@@ -109,7 +111,7 @@ if player_data:
             "Class DPS": None
         }
 
-        # Extract Scores
+        # Extract World Ranks
         ranks = data.get('mythic_plus_ranks', {})
         player_info["Overall"] = ranks.get('overall', {}).get('world', None)
         player_info["Class"] = ranks.get('class', {}).get('world', None)
@@ -136,9 +138,13 @@ if player_data:
         player_info_list.append(player_info)
 
     player_info_list.sort(key=lambda x: x["Player Name"])
+
     # Convert to DataFrame
     df = pd.DataFrame(player_info_list)  # Pass the list directly
-
+    
+    # Convert 0 indexing to 1 indexing
+    df.index = range(1, len(df) + 1)
+    
     # Display the DataFrame as a table
     st.dataframe(df, use_container_width=True)
 else:
@@ -163,7 +169,7 @@ if player_data:
             "Class DPS": None
         }
 
-        # Extract Scores
+        # Extract Region Ranks
         ranks = data.get('mythic_plus_ranks', {})
         player_info["Overall"] = ranks.get('overall', {}).get('region', None)
         player_info["Class"] = ranks.get('class', {}).get('region', None)
@@ -194,6 +200,9 @@ if player_data:
     # Convert to DataFrame
     df = pd.DataFrame(player_info_list)  # Pass the list directly
 
+    # Convert 0 indexing to 1 indexing
+    df.index = range(1, len(df) + 1)
+
     # Display the DataFrame as a table
     st.dataframe(df, use_container_width=True)
 else:
@@ -218,7 +227,7 @@ if player_data:
             "Class DPS": None
         }
 
-        # Extract Scores
+        # Extract Realm Ranks
         ranks = data.get('mythic_plus_ranks', {})
         player_info["Overall"] = ranks.get('overall', {}).get('realm', None)
         player_info["Class"] = ranks.get('class', {}).get('realm', None)
@@ -249,9 +258,10 @@ if player_data:
     # Convert to DataFrame
     df = pd.DataFrame(player_info_list)  # Pass the list directly
 
+    # Convert 0 indexing to 1 indexing
+    df.index = range(1, len(df) + 1)
+
     # Display the DataFrame as a table
     st.dataframe(df, use_container_width=True)
 else:
     st.write("No data available.")
-
-
