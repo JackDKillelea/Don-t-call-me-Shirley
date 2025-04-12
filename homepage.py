@@ -4,7 +4,7 @@ import pandas as pd
 
 APIKEY = "RIOA7C3rY8vWSajjvjroDXRka"
 
-players = ["Baldimonk", "Gigdh", "Seutoxze", "WhiteDane", "Winmea"]
+players = ["Baldimonk", "Gigdh", "Seutoxze", "WhiteDane", "Winmea", "Ñhs"]
 player_data = []
 
 def GetData(charName):
