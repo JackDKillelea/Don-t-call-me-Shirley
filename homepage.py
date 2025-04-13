@@ -11,9 +11,10 @@ players = {
     "Ñhs":"Draenor",
     "Iínk":"Kazzak"
 }
+
 player_data = []
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", page_title="Don't call me Shirley")
 
 st.title("Don't Call Me Shirley")
 st.subheader("Let me know if you want anything adding")
@@ -33,3 +34,5 @@ WorldRankingsTable.InitWorldRankingsTable(player_data)
 RegionRankingsTable.InitRegionRankingsTable(player_data)
 
 RealmRankingsTable.InitRealmRankingsTable(player_data)
+
+# TODO: Add Graphs? :o 
