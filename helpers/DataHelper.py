@@ -45,11 +45,10 @@ def CreateDF(player_info_list, sort_field, highlight_type, subset):
     styled_df = CreateGenericDF(player_info_list, sort_field).style.apply(highlight_type, subset=[subset])
     return styled_df
 
-def CreateKeystoneDF(player_info_list, sort_field, highlight_type, keystoneColours):
+def CreateKeystoneDF(player_info_list, sort_field, highlight_type):
     # Highlight the max and min
     styled_df = CreateGenericDF(player_info_list, sort_field).style
-    styled_df.apply(highlight_type, subset=['iLevel', 'DFC', 'ROOK', 'ML', 'WORK', 'TOP', 'BREW', 'PSF', 'FLOOD'])
-    styled_df.apply(keystoneColours, subset=['Score'])
+    styled_df.apply(highlight_type, subset=['DFC', 'ROOK', 'ML', 'WORK', 'TOP', 'BREW', 'PSF', 'FLOOD'])
     return styled_df
 
 def GetKeystoneLevel(data, player_info):

@@ -1,6 +1,6 @@
 import streamlit as st
 from helpers.DataHelper import GetData
-from Tables import KeystoneTable, WorldRankingsTable, RegionRankingsTable, RealmRankingsTable
+from Tables import KeystoneTable, WorldRankingsTable, RegionRankingsTable, RealmRankingsTable, PlayerTable
 
 players = {
     "Baldimonk":"Draenor",
@@ -23,6 +23,8 @@ for player, realm in players.items():
     data = GetData(player, realm)
     if data:
         player_data.append(data)
+
+PlayerTable.InitPlayerTable(player_data)
 
 KeystoneTable.InitKeystoneTable(player_data)
 
