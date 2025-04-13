@@ -1,6 +1,6 @@
 import streamlit as st
 from helpers.DataHelper import CreateDF, GetRanks
-from helpers.MathHelper import Highlight_Max_Min_Inverted
+from helpers.StyleHelper import Highlight_Max_Min_Inverted
     
 def InitRegionRankingsTable(player_data):
     st.header("Rankings Table Region")

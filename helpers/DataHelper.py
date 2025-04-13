@@ -16,6 +16,17 @@ def GetData(player, realm):
         st.write(f'Error: {response.status_code}')
         return None
     
+def GetScoreData():
+    url = "https://raider.io/api/v1/mythic-plus/score-tiers?access_key=RIOA7C3rY8vWSajjvjroDXRka"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else: 
+        st.write(f'Error: {response.status_code}')
+        return None
+    
 def GetRanks(ranks, player_info, search, table_title, competition):
     search_term = ranks.get(search, {}).get(competition, None)
     player_info[table_title] = f"{search_term:.0f}" if search_term is not None else None
@@ -34,9 +45,13 @@ def CreateDF(player_info_list, sort_field, highlight_type, subset):
     styled_df = CreateGenericDF(player_info_list, sort_field).style.apply(highlight_type, subset=[subset])
     return styled_df
 
-def CreateKeystoneDF(player_info_list, sort_field, highlight_type):
+def CreateKeystoneDF(player_info_list, sort_field, highlight_type, keystoneColours):
     # Highlight the max and min
-    styled_df = CreateGenericDF(player_info_list, sort_field).style.apply(highlight_type, subset=['Score', 'iLevel', 'DFC', 'ROOK', 'ML', 'WORK', 'TOP', 'BREW', 'PSF', 'FLOOD'])
+    styled_df = CreateGenericDF(player_info_list, sort_field).style
+    
+    styled_df.apply(highlight_type, subset=['iLevel', 'DFC', 'ROOK', 'ML', 'WORK', 'TOP', 'BREW', 'PSF', 'FLOOD'])
+    styled_df.apply(keystoneColours, subset=['Score'])
+
     return styled_df
 
 def GetKeystoneLevel(data, player_info):

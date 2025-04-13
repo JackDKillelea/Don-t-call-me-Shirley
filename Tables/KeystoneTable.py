@@ -1,6 +1,6 @@
 import streamlit as st
 from helpers.DataHelper import CreateKeystoneDF, GetRanks, GetKeystoneLevel
-from helpers.MathHelper import Highlight_Max_Min
+from helpers.StyleHelper import Highlight_Max_Min, ScoreColours
 
 def InitKeystoneTable(player_data):
     st.header("Keystone Table")
@@ -39,6 +39,6 @@ def InitKeystoneTable(player_data):
             # Append player info to the list
             player_info_list.append(player_info)
 
-        st.dataframe(CreateKeystoneDF(player_info_list, "Player Name", Highlight_Max_Min), use_container_width=True)
+        st.dataframe(CreateKeystoneDF(player_info_list, "Player Name", Highlight_Max_Min, ScoreColours), use_container_width=True)
     else:
         st.write("No data available.")
