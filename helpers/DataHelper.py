@@ -48,28 +48,24 @@ def CreateDF(player_info_list, sort_field, highlight_type, subset):
 def CreateKeystoneDF(player_info_list, sort_field, highlight_type, keystoneColours):
     # Highlight the max and min
     styled_df = CreateGenericDF(player_info_list, sort_field).style
-    
     styled_df.apply(highlight_type, subset=['iLevel', 'DFC', 'ROOK', 'ML', 'WORK', 'TOP', 'BREW', 'PSF', 'FLOOD'])
     styled_df.apply(keystoneColours, subset=['Score'])
-
     return styled_df
 
 def GetKeystoneLevel(data, player_info):
+    # Define a mapping of dungeon short names to player info keys
+    dungeon_mapping = {
+        "DFC": "DFC",
+        "ROOK": "ROOK",
+        "ML": "ML",
+        "WORK": "WORK",
+        "TOP": "TOP",
+        "BREW": "BREW",
+        "PSF": "PSF",
+        "FLOOD": "FLOOD",
+    }
+    
     for run in data.get('mythic_plus_best_runs', []):
         dungeon = run['short_name']
-        if dungeon == "DFC":
-            player_info["DFC"] = run['mythic_level']
-        elif dungeon == "ROOK":
-            player_info["ROOK"] = run['mythic_level']
-        elif dungeon == "ML":
-            player_info["ML"] = run['mythic_level']
-        elif dungeon == "WORK":
-            player_info["WORK"] = run['mythic_level']
-        elif dungeon == "TOP":
-            player_info["TOP"] = run['mythic_level']
-        elif dungeon == "BREW":
-            player_info["BREW"] = run['mythic_level']
-        elif dungeon == "PSF":
-            player_info["PSF"] = run['mythic_level']
-        elif dungeon == "FLOOD":
-            player_info["FLOOD"] = run['mythic_level']
+        if dungeon in dungeon_mapping:
+            player_info[dungeon_mapping[dungeon]] = f"{run['mythic_level']} ({run['score']})"
